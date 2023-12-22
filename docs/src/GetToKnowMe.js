@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import './GetToKnowMe.css'; // Assuming you have a separate CSS file
+
 
 function GetToKnowMe() {
   const sectionStyle = {
@@ -26,6 +27,52 @@ function GetToKnowMe() {
     lineHeight: '1.7',
     marginBottom: '20px'
   };
+
+  const journeyRef = useRef(null);
+  const skillsRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('pop-out-right');
+          }
+        });
+      },
+      { threshold: 0.5 } // Trigger when 50% of the element is in view
+    ); // <- Make sure this semicolon is here
+  
+    const observerLeft = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('pop-out-left');
+          }
+        });
+      },
+      { threshold: 0.5 }
+    ); // <- Make sure this semicolon is here
+
+    if (journeyRef.current) {
+      observer.observe(journeyRef.current);
+    }
+
+    if (skillsRef.current) {
+      observerLeft.observe(skillsRef.current);
+    }
+
+    return () => {
+      if (journeyRef.current) {
+        observer.unobserve(journeyRef.current);
+      }
+
+      if (skillsRef.current) {
+        observerLeft.unobserve(skillsRef.current);
+      }
+    };
+  }, []);
+
 
   return (
     <div className="container">

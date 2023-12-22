@@ -51,5 +51,34 @@
   
   /* You may add additional custom styles and animations here */
   
+  @keyframes slideFromRight {
+    0% {
+      opacity: 0;
+      transform: translateX(50%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideFromLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .pop-out-right {
+    animation: slideFromRight 1s forwards;
+  }
+  
+  .pop-out-left {
+    animation: slideFromLeft 1s forwards;
+  }
   
   
